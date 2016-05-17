@@ -1,0 +1,37 @@
+<div class="panel panel-primary">
+	<div class="panel-heading">
+		Select your pizza ingredients
+	</div>
+	<div class="panel-body">
+		<div class="btn-group">
+			<button type="button" class="btn btn-default" ng-class="{disabled: search === null}" ng-click="search = ''">All</button>
+			<button type="button" class="btn btn-default" ng-class="{disabled: search.fields.type === 'ingredient'}" ng-click="search = 'ingredient'">Only ingredients</button>
+			<button type="button" class="btn btn-default" ng-class="{disabled: search.fields.type === 'dough'}" ng-click="search = 'dough'">Only doughs</button>
+		</div>
+		<hr/>
+		<div ng-repeat="ingredients in list | filter: { fields.type : search }">
+			<div class="pull-right">
+				<div class="price">{{ingredients.fields.price}} €</div>
+				<input ng-readonly="ingredients.fields.type=='dough'" class="ingquantity" ng-init="ingredients.fields.quantity=1" maxlength="4" size="4" pattern="^[0-9]" min="1" max={{ingredients.fields.multiplicity}} ng-model="ingredients.fields.quantity" type="number">
+				<button type="button" ng-disabled="ingredients.fields.type=='dough' && order.hasdough" ng-click="order.add(ingredients)"
+				        class="btn btn-success">
+					<span class="glyphicon glyphicon-plus"></span>
+					Add
+				</button>
+			</div>
+			<h3>
+				{{ingredients.fields.name}}
+				<span class="label label-success" ng-show="ingredients.fields.vege">veggie</span>
+				<span class="label label-warning" ng-show="ingredients.fields.type=='dough'">dough</span>
+				<span class="label label-info">Max units: {{ingredients.fields.multiplicity}}</span>
+
+			</h3>
+			<p>
+				<span class="item">{{ingredients.fields.description}}</span>
+			</p>
+			<hr ng-hide="$last"/>
+		</div>
+	</div>
+</div>
+
+

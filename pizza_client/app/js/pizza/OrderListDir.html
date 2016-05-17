@@ -1,0 +1,44 @@
+<div class="panel panel-default">
+	<div class="panel-heading">
+		Your custom pizza
+	</div>
+	<div class="panel-body">
+		<p ng-hide="order.total">
+			Here you will see the ingredients you added.
+		</p>
+		<table class="table">
+			<tr ng-show="order.recipe.length">
+				<th>name</th>
+				<th>price per unit</th>
+				<th>count</th>
+				<th>total</th>
+				<th></th>
+			</tr>
+			<tr ng-repeat="item in order.recipe">
+				<td>{{item.ingredient.fields.name}}</td>
+				<td>{{item.ingredient.fields.price}} €</td>
+				<td>{{item.count}}</td>
+				<td>{{item.count * item.ingredient.fields.price | number:2}} €</td>
+				<td>
+					<button type="button" ng-click="order.remove($index)"
+					        class="btn btn-default btn-xs" title="remove">
+						<span class="glyphicon glyphicon-remove"></span>
+					</button>
+				</td>
+			</tr>
+			<tr ng-show="order.recipe.length">
+				<th>TOTAL</th>
+				<th></th>
+				<th></th>
+				<th>{{order.total | number:2}} €</th>
+				<th></th>
+			</tr>
+		</table>
+	</div>
+	<div class="panel-footer">
+		<button type="button" class="btn btn-default"
+		        ng-disabled="order.total === 0"
+		        ng-click="order.clear()">Clear order
+		</button>
+	</div>
+</div>
