@@ -1,5 +1,5 @@
 # Pizza-web
-Porject to create your own pizza using angujarjs and django
+Project to create your own pizza using angujarjs and django
 
 Client
 ============
